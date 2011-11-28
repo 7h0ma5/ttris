@@ -8,6 +8,14 @@ Game* Game_new() {
   return game;
 }
 
+void Game_tick(Game* game) {
+  int down = Block_tick(game->block, game->grid);
+  if (down) {
+    Block_delete(game->block);
+    game->block = Block_new();
+  }
+}
+
 void Game_delete(Game* game) {
   Grid_delete(game->grid);
   free(game);

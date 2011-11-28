@@ -12,8 +12,6 @@ void render_grid(Grid* grid) {
     int y1 = y * BOX_SIZE;
     int y2 = y * BOX_SIZE + BOX_SIZE;
 
-    printf("%d %d == %d %d\n", x1, x2, y1, y2);
-
     if (grid->cells[i] == CELL_CLEAR) glBegin(GL_LINE_LOOP);
     else glBegin(GL_QUADS);
 
@@ -48,6 +46,7 @@ void render_grid(Grid* grid) {
 }
 
 void display(void) {
+  printf("redraw\n");
   glClear(GL_COLOR_BUFFER_BIT);
   render_grid(current_game->grid);
   glutSwapBuffers();
