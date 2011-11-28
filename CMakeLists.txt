@@ -16,3 +16,4 @@ add_executable(ttris
 )
 
 target_link_libraries(ttris ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
+install(TARGETS ttris RUNTIME DESTINATION bin)
