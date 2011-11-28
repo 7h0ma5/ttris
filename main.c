@@ -25,7 +25,6 @@ int main(int argc, char** argv) {
   glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH);
   glutCreateWindow("ttris");
 
-
   glutDisplayFunc(display);
   glutKeyboardFunc(keyboard);
   glutSpecialFunc(keyboard);
@@ -37,7 +36,6 @@ int main(int argc, char** argv) {
   glMatrixMode(GL_MODELVIEW);
   glDisable(GL_DEPTH_TEST);
 
-  Game_tick(current_game);
   Game_tick(current_game);
 
   glutMainLoop();

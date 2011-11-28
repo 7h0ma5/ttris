@@ -38,18 +38,27 @@ static int height(int* figure) {
   return max;
 }
 
-static int testCollision(Block* block) {
+static int testCollision(Block* block, Grid* grid) {
   int h = height(figures[block->figure]);
   int w = width(figures[block->figure]);
   if (block->y + h >= GRID_HEIGHT) return 1;
+  if (block->x < 0) return 1;
+  if (block->x + w >= GRID_WIDTH) return 1;
+
+  int* figure = figures[block->figure];
+  int off = offset(block);
+  for (int i = 0; i < 4; i++) {
+    if (grid->cells[off+figure[i]] != CELL_CLEAR) return 1;
+  }
+
   return 0;
 }
 
 Block* Block_new() {
   Block* block = malloc(sizeof(Block));
   block->figure = rand() % 4;
-  block->x = 0;
-  block->y = 0;
+  block->x = GRID_WIDTH/2-1;
+  block->y = -1;
   return block;
 }
 
@@ -71,9 +80,9 @@ void Block_draw(Block* block, Grid* grid) {
 
 int Block_tick(Block* block, Grid* grid) {
   int down = 0;
-  if (block->y > 0) Block_clear(block, grid);
+  if (block->y >= 0) Block_clear(block, grid);
   block->y++;
-  if (testCollision(block)) {
+  if (testCollision(block, grid)) {
     block->y--;
     down = 1;
   }
@@ -84,14 +93,14 @@ int Block_tick(Block* block, Grid* grid) {
 void Block_moveLeft(Block* block, Grid* grid) {
   Block_clear(block, grid);
   block->x--;
-  if (testCollision(block)) block->x--;
+  if (testCollision(block, grid)) block->x++;
   Block_draw(block, grid);
 }
 
 void Block_moveRight(Block* block, Grid* grid) {
   Block_clear(block, grid);
   block->x++;
-  if (testCollision(block)) block->x--;
+  if (testCollision(block, grid)) block->x--;
   Block_draw(block, grid);
 }
 
@@ -102,7 +111,7 @@ void Block_rotate(Block* block, Grid* grid) {
 void Block_moveDown(Block* block, Grid* grid) {
   Block_clear(block, grid);
   block->y++;
-  if (testCollision(block)) block->y--;
+  if (testCollision(block, grid)) block->y--;
   Block_draw(block, grid);
 }
 

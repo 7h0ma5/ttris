@@ -46,7 +46,6 @@ void render_grid(Grid* grid) {
 }
 
 void display(void) {
-  printf("redraw\n");
   glClear(GL_COLOR_BUFFER_BIT);
   render_grid(current_game->grid);
   glutSwapBuffers();
