@@ -8,16 +8,20 @@
 #define WINDOW_HEIGHT 480
 
 Game* current_game;
+int lock;
 
 void tick(int time) {
+  lock = 1;
   glutTimerFunc(1000, tick, 0);
   Game_tick(current_game);
   glutPostRedisplay();
+  lock = 0;
 }
 
 int main(int argc, char** argv) {
   srand(time(NULL));
 
+  lock = 0;
   current_game = Game_new();
 
   glutInit(&argc, argv);
@@ -35,8 +39,6 @@ int main(int argc, char** argv) {
   glOrtho(0, GRID_WIDTH*BOX_SIZE, GRID_HEIGHT*BOX_SIZE, 0, 0, 1);
   glMatrixMode(GL_MODELVIEW);
   glDisable(GL_DEPTH_TEST);
-
-  Game_tick(current_game);
 
   glutMainLoop();
 

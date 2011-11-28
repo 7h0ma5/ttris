@@ -11,6 +11,7 @@ Game* Game_new() {
 void Game_tick(Game* game) {
   int down = Block_tick(game->block, game->grid);
   if (down) {
+    Grid_checkFull(game->grid);
     Block_delete(game->block);
     game->block = Block_new();
   }

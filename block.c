@@ -1,12 +1,16 @@
 #include <stdlib.h>
+#include <string.h>
 #include "block.h"
 #include "grid.h"
+
+#define FIGURE_COUNT 5
 
 static int figures[][4] = {
   { 0, GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 3 },
   { 0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 },
   { 0, GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1 },
   { 1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 },
+  { 0, 1, GRID_WIDTH, GRID_WIDTH + 1 },
 };
 
 static CellType colors[] = {
@@ -14,6 +18,7 @@ static CellType colors[] = {
   CELL_GREEN,
   CELL_BLUE,
   CELL_YELLOW,
+  CELL_BLUE,
 };
 
 static int offset(Block* block) {
@@ -39,16 +44,15 @@ static int height(int* figure) {
 }
 
 static int testCollision(Block* block, Grid* grid) {
-  int h = height(figures[block->figure]);
-  int w = width(figures[block->figure]);
+  int h = height(block->figure);
+  int w = width(block->figure);
   if (block->y + h >= GRID_HEIGHT) return 1;
   if (block->x < 0) return 1;
   if (block->x + w >= GRID_WIDTH) return 1;
 
-  int* figure = figures[block->figure];
   int off = offset(block);
   for (int i = 0; i < 4; i++) {
-    if (grid->cells[off+figure[i]] != CELL_CLEAR) return 1;
+    if (grid->cells[off+block->figure[i]] != CELL_CLEAR) return 1;
   }
 
   return 0;
@@ -56,25 +60,24 @@ static int testCollision(Block* block, Grid* grid) {
 
 Block* Block_new() {
   Block* block = malloc(sizeof(Block));
-  block->figure = rand() % 4;
+  block->figure_id = rand() % FIGURE_COUNT;
+  memcpy(block->figure, figures[block->figure_id], sizeof(int)*4);
   block->x = GRID_WIDTH/2-1;
-  block->y = -1;
+  block->y = 0;
   return block;
 }
 
 void Block_clear(Block* block, Grid* grid) {
-  int* figure = figures[block->figure];
   int off = offset(block);
   for (int i = 0; i < 4; i++) {
-    grid->cells[off+figure[i]] = CELL_CLEAR;
+    grid->cells[off+block->figure[i]] = CELL_CLEAR;
   }
 }
 
 void Block_draw(Block* block, Grid* grid) {
-  int* figure = figures[block->figure];
   int off = offset(block);
   for (int i = 0; i < 4; i++) {
-    grid->cells[off+figure[i]] = colors[block->figure];
+    grid->cells[off+block->figure[i]] = colors[block->figure_id];
   }
 }
 

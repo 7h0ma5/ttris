@@ -4,7 +4,8 @@
 #include "grid.h"
 
 typedef struct Block {
-  int figure;
+  int figure_id;
+  int figure[4];
   int x, y;
 } Block;
 

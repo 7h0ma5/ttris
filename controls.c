@@ -3,6 +3,8 @@
 #include "controls.h"
 
 void keyboard(unsigned char key, int x, int y) {
+  if (lock) return;
+
   switch(key){
   case 'q':
   case '\033':
