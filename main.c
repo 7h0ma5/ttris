@@ -12,7 +12,7 @@ int lock;
 
 void tick(int time) {
   lock = 1;
-  glutTimerFunc(1000, tick, 0);
+  glutTimerFunc(800, tick, 0);
   Game_tick(current_game);
   glutPostRedisplay();
   lock = 0;
@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
   glutDisplayFunc(display);
   glutKeyboardFunc(keyboard);
   glutSpecialFunc(keyboard);
-  glutTimerFunc(1000, tick, 0);
+  glutTimerFunc(800, tick, 0);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();

@@ -18,7 +18,7 @@ static CellType colors[] = {
   CELL_GREEN,
   CELL_BLUE,
   CELL_YELLOW,
-  CELL_BLUE,
+  CELL_PURPLE,
 };
 
 static int offset(Block* block) {
@@ -46,6 +46,7 @@ static int height(int* figure) {
 static int testCollision(Block* block, Grid* grid) {
   int h = height(block->figure);
   int w = width(block->figure);
+
   if (block->y + h >= GRID_HEIGHT) return 1;
   if (block->x < 0) return 1;
   if (block->x + w >= GRID_WIDTH) return 1;
@@ -56,6 +57,18 @@ static int testCollision(Block* block, Grid* grid) {
   }
 
   return 0;
+}
+
+static void rotate(Block* block, int times) {
+  int w = width(block->figure);
+
+  for (int j = times; j > 0; j--) {
+    for (int i = 0; i < 4; i++) {
+      int x = block->figure[i] % GRID_WIDTH;
+      int y = block->figure[i] / GRID_WIDTH;
+      block->figure[i] = y + (w-x) * GRID_WIDTH;
+    }
+  }
 }
 
 Block* Block_new() {
@@ -108,7 +121,10 @@ void Block_moveRight(Block* block, Grid* grid) {
 }
 
 void Block_rotate(Block* block, Grid* grid) {
-
+  Block_clear(block, grid);
+  rotate(block, 1);
+  if (testCollision(block, grid)) rotate(block, 3);
+  Block_draw(block, grid);
 }
 
 void Block_moveDown(Block* block, Grid* grid) {

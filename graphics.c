@@ -35,6 +35,10 @@ void render_grid(Grid* grid) {
     case CELL_YELLOW:
       glColor3f(1, 1, 0);
       break;
+
+    case CELL_PURPLE:
+      glColor3f(1, 0, 1);
+      break;
     }
 
     glVertex2f(x1, y1);
