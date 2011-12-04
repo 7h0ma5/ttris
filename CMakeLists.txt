@@ -16,4 +16,5 @@ add_executable(ttris MACOSX_BUNDLE WIN32
 )
 
 target_link_libraries(ttris ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
-install(TARGETS ttris RUNTIME DESTINATION bin)
+install(TARGETS ttris RUNTIME DESTINATION bin
+                      BUNDLE DESTINATION /Applications)
