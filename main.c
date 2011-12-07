@@ -8,7 +8,6 @@
 #include "controls.h"
 #include "graphics.h"
 
-#define WINDOW_WIDTH 480
 #define WINDOW_HEIGHT 480
 
 Game* current_game;
@@ -29,7 +28,8 @@ int main(int argc, char** argv) {
   current_game = Game_new();
 
   glutInit(&argc, argv);
-  glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  glutInitWindowSize((GRID_WIDTH/GRID_HEIGHT)*WINDOW_HEIGHT,
+                     WINDOW_HEIGHT);
   glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH);
   glutCreateWindow("ttris");
 
