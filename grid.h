@@ -19,7 +19,7 @@ typedef struct Grid {
 } Grid;
 
 Grid* Grid_new();
-void Grid_checkFull(Grid* grid);
+int Grid_checkFull(Grid* grid);
 void Grid_delete(Grid* grid);
 
 #endif

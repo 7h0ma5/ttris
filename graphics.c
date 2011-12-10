@@ -3,6 +3,7 @@
 #else
   #include <GL/glut.h>
 #endif
+#include <stdio.h>
 #include "graphics.h"
 #include "game.h"
 
@@ -53,8 +54,18 @@ void render_grid(Grid* grid) {
   }
 }
 
+void render_info(Game* game) {
+  char score[20];
+  sprintf(score, "%d", game->score);
+
+  glColor3f(1.0, 1.0, 1.0);
+  glRasterPos2f(20, 20);
+  glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, score);
+}
+
 void display(void) {
   glClear(GL_COLOR_BUFFER_BIT);
   render_grid(current_game->grid);
+  render_info(current_game);
   glutSwapBuffers();
 }

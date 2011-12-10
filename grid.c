@@ -9,7 +9,7 @@ Grid* Grid_new() {
   return grid;
 }
 
-void Grid_checkFull(Grid* grid) {
+int Grid_checkFull(Grid* grid) {
   for (int y = 0; y < GRID_HEIGHT; y++) {
     int full = 1;
     for (int x = 0; x < GRID_WIDTH; x++) {
@@ -19,10 +19,10 @@ void Grid_checkFull(Grid* grid) {
       for (int i = (y+1)*GRID_WIDTH; i > GRID_WIDTH; i--) {
         grid->cells[i] = grid->cells[i-GRID_WIDTH];
       }
-      Grid_checkFull(grid);
-      return;
+      return Grid_checkFull(grid)+1;
     }
   }
+  return 0;
 }
 
 void Grid_delete(Grid* grid) {

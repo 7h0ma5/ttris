@@ -5,14 +5,14 @@
 #include "block.h"
 
 typedef struct Game {
-  int time;
+  int score;
   Grid* grid;
   Block* block;
 } Game;
 
 Game* Game_new();
 
-void Game_tick(Game* game);
+int Game_tick(Game* game);
 void Game_delete(Game* game);
 
 extern Game* current_game;
