@@ -6,6 +6,7 @@
 
 typedef struct Game {
   int score;
+  int running;
   Grid* grid;
   Block* block;
 } Game;

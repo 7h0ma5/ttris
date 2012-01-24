@@ -12,6 +12,7 @@ typedef enum CellType {
   CELL_GREEN,
   CELL_YELLOW,
   CELL_PURPLE,
+  CELL_ORANGE,
 } CellType;
 
 typedef struct Grid {

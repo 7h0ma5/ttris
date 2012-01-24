@@ -7,7 +7,7 @@
 #include "controls.h"
 
 void keyboard(unsigned char key, int x, int y) {
-  if (lock) return;
+  if (lock || !current_game->running) return;
 
   switch(key){
   case 'q':
@@ -30,5 +30,6 @@ void keyboard(unsigned char key, int x, int y) {
     Block_moveDown(current_game->block, current_game->grid);
     break;
   }
+
   glutPostRedisplay();
 }

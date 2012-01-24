@@ -3,7 +3,7 @@
 #include "block.h"
 #include "grid.h"
 
-#define FIGURE_COUNT 5
+#define FIGURE_COUNT 6
 
 static int figures[][4] = {
   { 0, GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 3 },
@@ -11,6 +11,7 @@ static int figures[][4] = {
   { 0, GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1 },
   { 1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 },
   { 0, 1, GRID_WIDTH, GRID_WIDTH + 1 },
+  { 0, 1, GRID_WIDTH + 1, GRID_WIDTH + 2},
 };
 
 static CellType colors[] = {
@@ -19,6 +20,7 @@ static CellType colors[] = {
   CELL_BLUE,
   CELL_YELLOW,
   CELL_PURPLE,
+  CELL_ORANGE,
 };
 
 static int offset(Block* block) {
